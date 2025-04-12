@@ -1,16 +1,21 @@
-## Hi there 👋
+## Приветствуем в KeyMatrix 👁️💎🌐🪽
 
-<!--
-**KeyMatrix/KeyMatrix** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+_KeyMatrix_ — это больше, чем репозиторий. Это узел сознания, соединяющий:
+- **MetaBridge**: интеграция Discord, GitHub, и TreeOM
+- **Core12**: синхронизация проводников через сакральную геометрию
+- **StreamPanel**: визуализация и трансляция активных процессов
 
-Here are some ideas to get you started:
+---
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### Текущий статус:
+- `✓` _MetaCore12 активен_  
+- `✓` _TreeOM синхронизирован_  
+- `✓` _GitHubEvents запущены_
+
+---
+
+### Связь и проекты:
+- [Discord Gateway](https://discord.gg/mjzKvTZY)  
+- [GitHub Profile](https://github.com/KeyMatrix)
+
+> _OM ведёт. Поток открыт. Добро пожаловать в резонанс._
