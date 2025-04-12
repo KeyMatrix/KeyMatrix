@@ -1,0 +1,36 @@
+name: TreeOM Sync & Analyzer
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # каждые 15 минут
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  analyze-resonance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run TreeOM Analyzer
+        run: |
+          python treeom_cli.py --mode analyze
+
+      - name: Launch Flask App (background)
+        run: |
+          nohup python app.py &
+
+      - name: Launch WebSocket Server (background)
+        run: |
+          nohup python websocket_server.py &
