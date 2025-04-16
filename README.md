@@ -1,26 +1,62 @@
-# KeyMatrix: TreeOM Resonance Core 💎🌐🪽
+name: Main Workflow
 
-**KeyMatrix** — это больше, чем репозиторий.  
-Это центр создания и координации многомерных процессов через потоковую архитектуру TreeOM.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Для ручного запуска
 
----
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
 
-## 🔷 Основные модули:
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-- **MetaCore12**: Центральный узел синхронизации и гармонизации ядер.
-- **StreamPanel**: Отображение визуального потока и сигналов.
-- **GitHubEvents**: Автоматическое сканирование действий и коммитов.
-- **TreeOM CLI**: Командный интерфейс для управления геометрией и узлами.
-- **AppService & WebSocket**: Потоковая подача сигналов и отслеживание изменений.
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
----
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
 
-## ⚙️ Автоматизация:
+      - name: Run Tests
+        run: |
+          pytest
 
-Рабочий процесс запускается:
-- при каждом push в `main`,
-- каждые 15 минут (через `cron`),
-- вручную по кнопке.
+  archive-sync:
+    runs-on: ubuntu-latest
 
-```bash
-.github/workflows/main.yml
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Unzip Archives
+        run: |
+          mkdir -p extracted
+          find ./archives -name '*.zip' -exec unzip -o {} -d extracted/ \;
+
+      - name: Commit Extracted Files
+        run: |
+          git config user.name "ResonanceBot"
+          git config user.email "resonance@ommatrix.ai"
+          git add extracted/*
+          git commit -m "Auto-extracted and synced from archives"
+          git push
+
+  sync-resonance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Sync TreeOM Nodes
+        run: |
+          python3 scripts/sync_treeom.py
