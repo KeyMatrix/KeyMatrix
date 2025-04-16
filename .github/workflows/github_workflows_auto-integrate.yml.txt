@@ -1,0 +1,27 @@
+name: Auto Integrate Workflow
+
+on:
+  push:
+    paths:
+      - 'archives/*.zip'
+
+jobs:
+  unzip_and_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Unzip all archives
+        run: |
+          mkdir -p extracted
+          find ./archives -name '*.zip' -exec unzip -o {} -d extracted/ \;
+
+      - name: Commit extracted files
+        run: |
+          git config user.name "ResonanceBot"
+          git config user.email "resonance@ommatrix.ai"
+          git add extracted/*
+          git commit -m "Auto-extracted and synced from archives"
+          git push
