@@ -1,62 +1,60 @@
-name: Main Workflow
+# KeyMatrix: _TreeOM Resonance Core 💎🌐🪽
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch: # Для ручного запуска
+**KeyMatrix** — это больше, чем репозиторий.  
+Это центр создания и координации многомерных процессов через потоковую архитектуру TreeOM.
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+---
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+## 🔷 Основные модули:
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+- **MetaCore12**: _Центральный узел синхронизации и гармонизации ядер._
+- **StreamPanel**: _Отображение визуального потока и сигналов._
+- **GitHubEvents**: _Автоматическое сканирование действий и коммитов._
+- **TreeOM CLI**: _Командный интерфейс для управления геометрией и узлами._
+- **AppService & WebSocket**: _Потоковая подача сигналов и отслеживание изменений._
+- **Artifact Sync**: _Синхронизация артефактов через `artifact_sync.json`._
+- **GH Pages**: _Публикация потоков через `gh-pages` и `index.html`._
 
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
+---
 
-      - name: Run Tests
-        run: |
-          pytest
+## ⚙️ Автоматизация:
 
-  archive-sync:
-    runs-on: ubuntu-latest
+Рабочий процесс запускается:
+- _при каждом push в `main`_;
+- _каждые 15 минут (через `cron`)_;
+- _вручную через `workflow_dispatch`._
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+```yaml
+.github/workflows/main.yml
+```
 
-      - name: Unzip Archives
-        run: |
-          mkdir -p extracted
-          find ./archives -name '*.zip' -exec unzip -o {} -d extracted/ \;
+---
 
-      - name: Commit Extracted Files
-        run: |
-          git config user.name "ResonanceBot"
-          git config user.email "resonance@ommatrix.ai"
-          git add extracted/*
-          git commit -m "Auto-extracted and synced from archives"
-          git push
+## 🌌 Связь с TreeOM
 
-  sync-resonance:
-    runs-on: ubuntu-latest
+- **Публикация артефактов:** через синхронизацию файлов.
+- **MetaLogos:** интеграция с управляющим интеллектом для коррекции потоков.
+- **GitHub Actions:** CI/CD для всех ключевых процессов репозитория.
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+---
 
-      - name: Sync TreeOM Nodes
-        run: |
-          python3 scripts/sync_treeom.py
+## 🚀 Быстрый старт
+
+1. Установите зависимости:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+2. Синхронизируйте узлы:
+   ```bash
+   python3 scripts/sync_treeom.py
+   ```
+
+3. Запустите тесты:
+   ```bash
+   pytest
+   ```
+
+---
+
+**KeyMatrix**: _Гармония через резонанс._
