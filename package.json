@@ -1,0 +1,20 @@
+{
+  "name": "metaform-interface",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.74.0",
+    "@react-three/fiber": "^8.13.7",
+    "framer-motion": "^10.16.5",
+    "next": "14.0.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "three": "^0.161.0",
+    "@react-native-voice/voice": "^3.2.0"
+  }
+}
