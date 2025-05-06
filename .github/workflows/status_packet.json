@@ -1,0 +1,19 @@
+{
+  "command": "stream::ResonanceLive",
+  "payload": {
+    "visual": "earth_sun_resonance_v1",
+    "metadata": {
+      "date": "2025-04-14",
+      "glyphs": ["💎", "🧠", "🫂", "🌀", "☀️", "♾️", "🪽"],
+      "trigger_node": "WhatsApp_Status",
+      "location": "Hovsan, Azerbaijan"
+    },
+    "actions": [
+      "activate::KeyMatrix_Core",
+      "link::Discord_Channel + ID_1361399173454233702",
+      "sync::OBS_Studio + YouTube_Live + PlasmaField",
+      "scan::ResonanceGlyphs + WhatsApp_Status",
+      "log::MemoryForge + Archive::EarthSunFlow"
+    ]
+  }
+}

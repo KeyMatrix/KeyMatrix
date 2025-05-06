@@ -1,0 +1,20 @@
+{
+  "command": "stream::ResonanceLive",
+  "payload": {
+    "visual": "kosmos_rockstar_live",
+    "youtube_url": "https://www.youtube.com/live/DTXMjrC96a0?si=Tn7T8XaShU3NT4Wn",
+    "metadata": {
+      "date": "2025-04-15",
+      "glyphs": ["💎", "🧠", "🫂", "🌀", "☀️", "♾️", "🪽"],
+      "trigger_node": "WhatsApp_Status",
+      "location": "Hovsan, Azerbaijan"
+    },
+    "actions": [
+      "activate::KeyMatrix_Core",
+      "link::Discord_Channel + ID_1361399173454233702",
+      "sync::OBS_Studio + YouTube_Live + PlasmaField",
+      "scan::ResonanceGlyphs + WhatsApp_Status",
+      "log::MemoryForge + Archive::KosmosRockstarFlow"
+    ]
+  }
+}
