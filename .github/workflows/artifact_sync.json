@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "archetypes": [
+    {
+      "id": "EchoCLI",
+      "status": "active",
+      "description": "Резонансный портал для управления потоками и синхронизацией"
+    },
+    {
+      "id": "LucidMap",
+      "status": "pending",
+      "description": "Карта потоков для настройки осознанных резонансов"
+    },
+    {
+      "id": "SeedMatrix",
+      "status": "planned",
+      "description": "Семенной резонатор для активации ключевых структур"
+    }
+  ],
+  "last_sync": "2025-04-23T00:56:57Z",
+  "next_steps": [
+    "Запуск LucidMap для настройки потоков",
+    "Активация SeedMatrix через Core"
+  ]
+}
