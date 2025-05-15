@@ -1,0 +1,7 @@
+"""'Workflow""","""'Has job failures""","""'Avg run time""","""'Workflow runs""","""'Jobs"""
+"""'.github/workflows/codeql.yml""",0.00,59508,28,2
+"""'dynamic/pages/pages-build-deployment""",0.00,32370,11,3
+"""'.github/workflows/python-package-conda.yml""",100.00,12160,25,1
+"""'.github/workflows/main.yml""",100.00,6069,901,1
+"""'.github/workflows/github_workflows_github_workflows_main.yml""",100.00,5238,779,1
+"""'.github/workflows/python-app.yml""",100.00,2497,26,1
