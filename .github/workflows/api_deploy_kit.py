@@ -1,11 +1,12 @@
 import base64
 import requests
+import os
 
 # 🔹 Настройки
 GITHUB_API_URL = "https://api.github.com"
 REPO = "KeyMatrix/Quantum_PlazMatrix"
 BRANCH = "main"
-TOKEN = "YOUR_PERSONAL_ACCESS_TOKEN"
+TOKEN = os.getenv("GITHUB_TOKEN")
 
 def upload_file(file_path, target_path, commit_message):
     with open(file_path, "rb") as file:

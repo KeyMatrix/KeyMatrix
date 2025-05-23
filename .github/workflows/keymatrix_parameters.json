@@ -1,0 +1,62 @@
+{
+    "states": {
+        "harmony": {
+            "frequency_range": [
+                15,
+                50
+            ],
+            "amplitude": "low",
+            "transition_dynamics": "smooth_sine_wave",
+            "color_gradient": [
+                "#FFDDC1",
+                "#FEC8D8",
+                "#E0BBE4"
+            ]
+        },
+        "balance": {
+            "frequency_range": [
+                50,
+                150
+            ],
+            "amplitude": "medium",
+            "transition_dynamics": "stable_cosine_wave",
+            "color_gradient": [
+                "#B4E7F5",
+                "#D4A5A5",
+                "#FF6961"
+            ]
+        },
+        "chaos": {
+            "frequency_range": [
+                200,
+                500
+            ],
+            "amplitude": "high",
+            "transition_dynamics": "fractal_perlin_noise",
+            "color_gradient": [
+                "#FF0000",
+                "#800000",
+                "#550000"
+            ]
+        }
+    },
+    "transitions": {
+        "harmony_to_balance": "soft_transition_with_gaussian_smoothing",
+        "balance_to_chaos": "sharp_transition_with_frequency_spikes",
+        "chaos_to_harmony": "gradual_transition_with_amplitude_fade"
+    },
+    "testing": {
+        "fractal_noise": {
+            "implemented": true,
+            "types": [
+                "Perlin",
+                "Simplex"
+            ],
+            "performance_results": {
+                "average_render_time_ms": 42.5,
+                "compatibility": "WebGL and Canvas",
+                "fallback": "CSS animations"
+            }
+        }
+    }
+}
