@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный ксилофон</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .key {
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .key.active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-white rounded-xl shadow-lg p-6">
+        <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Интерактивный ксилофон</h1>
+        
+        <div class="mb-8 bg-gray-50 p-4 rounded-lg">
+            <h2 class="text-xl font-semibold mb-2 text-gray-700">Инструкции:</h2>
+            <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Нажимайте клавиши мышкой или используйте клавиши 1-8 на клавиатуре</li>
+                <li>Каждая клавиша воспроизводит ноту разной высоты</li>
+                <li>Нажатые клавиши подсвечиваются</li>
+            </ul>
+        </div>
+
+        <div class="xylophone-keys flex justify-center items-end h-64 gap-1 mb-8">
+            <!-- Клавиши ксилофона -->
+            <div data-note="C" class="key w-16 h-48 bg-red-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="D" class="key w-16 h-44 bg-orange-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="E" class="key w-16 h-40 bg-yellow-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="F" class="key w-16 h-36 bg-green-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="G" class="key w-16 h-32 bg-blue-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="A" class="key w-16 h-28 bg-indigo-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="B" class="key w-16 h-24 bg-purple-400 rounded-t-lg cursor-pointer"></div>
+            <div data-note="C2" class="key w-16 h-20 bg-pink-400 rounded-t-lg cursor-pointer"></div>
+        </div>
+
+        <div class="text-center text-gray-500">
+            <p>Нажмите любую клавишу, чтобы начать играть</p>
+        </div>
+    </div>
+
+    <script>
+        // Инициализация аудио контекста
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Частоты для нот (C4 - C5)
+        const noteFrequencies = {
+            'C': 261.63,  // До
+            'D': 293.66,  // Ре
+            'E': 329.63,  // Ми
+            'F': 349.23,  // Фа
+            'G': 392.00,  // Соль
+            'A': 440.00,  // Ля
+            'B': 493.88,  // Си
+            'C2': 523.25  // До следующей октавы
+        };
+
+        // Создание осциллятора и фильтра для более натурального звука
+        function playNote(frequency) {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            const filter = audioContext.createBiquadFilter();
+            
+            oscillator.type = 'sine';
+            filter.type = 'highpass';
+            filter.frequency.value = 1000;
+            
+            oscillator.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Плавное затухание звука
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+            
+            oscillator.frequency.value = frequency;
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 1);
+        }
+
+        // Обработка нажатий клавиш
+        const keys = document.querySelectorAll('.key');
+        const keyMap = {
+            '1': 'C', '2': 'D', '3': 'E', '4': 'F',
+            '5': 'G', '6': 'A', '7': 'B', '8': 'C2'
+        };
+
+        keys.forEach(key => {
+            // Клик мышкой
+            key.addEventListener('mousedown', () => {
+                const note = key.dataset.note;
+                key.classList.add('active');
+                playNote(noteFrequencies[note]);
+            });
+            
+            key.addEventListener('mouseup', () => {
+                key.classList.remove('active');
+            });
+            
+            key.addEventListener('mouseleave', () => {
+                key.classList.remove('active');
+            });
+        });
+
+        // Нажатие клавиш клавиатуры
+        document.addEventListener('keydown', (e) => {
+            const note = keyMap[e.key];
+            if (note) {
+                const key = document.querySelector(`[data-note="${note}"]`);
+                key.classList.add('active');
+                playNote(noteFrequencies[note]);
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            const note = keyMap[e.key];
+            if (note) {
+                const key = document.querySelector(`[data-note="${note}"]`);
+                key.classList.remove('active');
+            }
+        });
+    </script>
+<script>window.parent.postMessage({ action: "ready" }, "*"); 
+ 
+window.console = new Proxy(console, {
+  get(target, prop) {
+    if (['log', 'warn', 'error'].includes(prop)) {
+      return new Proxy(target[prop], {
+        apply(fn, thisArg, args) {
+          fn.apply(thisArg, args);
+          window.parent.postMessage({ action: 'console', 
+            type: prop, 
+            args: args.map((arg) => {
+              try {
+                return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+              } catch (e) {
+                return arg;
+              }
+            }) 
+          }, '*');
+        }
+      });
+    }
+    return target[prop];
+  }
+});
+</script></body>
+</html>
