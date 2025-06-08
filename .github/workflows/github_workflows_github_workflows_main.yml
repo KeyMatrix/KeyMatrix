@@ -30,7 +30,15 @@ jobs:
         with:
           python-version: 3.10
 
+      - name: Check if requirements.txt exists
+        id: check-requirements
+        run: |
+          if [ ! -f requirements.txt ]; then
+            echo "requirements.txt not found!"; exit 1;
+          fi
+
       - name: Install dependencies
+        if: steps.check-requirements.outcome == 'success'
         run: |
           pip install -r requirements.txt
 
